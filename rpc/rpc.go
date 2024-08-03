@@ -20,7 +20,7 @@ func (s *Server) SendTransactional(ctx context.Context, req *mail.SendTransactio
 		Subject: req.Subject,
 	})
 	if err != nil {
-		return nil, errors.GRPCStatus(err)
+		return nil, errors.ToGRPCStatus(err)
 	}
 
 	return &mail.SendTransactionalResponse{

@@ -11,3 +11,10 @@ jobs:
       contents: read
       packages: write
     secrets: inherit
+
+  deploy:
+    uses: emitra-labs/actions/.github/workflows/deploy-docker.yaml@main
+    needs: build
+    permissions:
+      contents: read
+    secrets: inherit
