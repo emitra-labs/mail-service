@@ -1,0 +1,13 @@
+name: Deploy
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    uses: emitra-labs/actions/.github/workflows/build-go.yaml@main
+    permissions:
+      contents: read
+      packages: write
+    secrets: inherit
