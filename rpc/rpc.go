@@ -7,6 +7,7 @@ import (
 	"github.com/emitra-labs/mail-service/controller"
 	"github.com/emitra-labs/mail-service/model"
 	"github.com/emitra-labs/pb/mail"
+	"github.com/samber/lo"
 )
 
 type Server struct {
@@ -18,6 +19,18 @@ func (s *Server) SendTransactional(ctx context.Context, req *mail.SendTransactio
 		From:    req.From,
 		To:      req.To,
 		Subject: req.Subject,
+		Body: &model.TransactionalBody{
+			Name:   req.Body.Name,
+			Intros: req.Body.Intros,
+			Actions: lo.Map(req.Body.Actions, func(a *mail.TransactionalAction, i int) *model.TransactionalAction {
+				return &model.TransactionalAction{
+					Color: a.Color,
+					Link:  a.Link,
+					Text:  a.Text,
+				}
+			}),
+			Outros: req.Body.Outros,
+		},
 	})
 	if err != nil {
 		return nil, errors.ToGRPCStatus(err)
