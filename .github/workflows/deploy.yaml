@@ -17,4 +17,6 @@ jobs:
     needs: build
     permissions:
       contents: read
+    with:
+      group: services
     secrets: inherit
